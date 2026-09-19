@@ -11,7 +11,7 @@ export default function Home(){
   }
   const orderOnWhatsApp = (p) => {
     const msg = `Hello ShopDex, I want to order: ${p.name} - ₦${p.price}`
-    window.open(`https://wa.me/234YOURNUMBER?text=${encodeURIComponent(msg)}`,'_blank')
+    window.open(`https://wa.me/2349059791761?text=${encodeURIComponent(msg)}`,'_blank')
   }
   return (
     <div>
