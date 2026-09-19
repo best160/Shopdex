@@ -25,10 +25,10 @@ export default function Admin() {
   }
 
   function login() {
-    if (password === "shopdex123") {
+    if (password === "best1234##") {
       setIsLogged(true);
     } else {
-      alert("Wrong password bro!");
+      alert("Wrong password bro!, try again");
     }
   }
 
