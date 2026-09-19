@@ -24,8 +24,8 @@ export default function Admin() {
   }
 
   function login() {
-    if (password === "shopdex123") setIsLogged(true);
-    else alert("Wrong password bro!");
+    if (password === "best1234##") setIsLogged(true);
+    else alert("Wrong password bro!, try again");
   }
 
   async function addProduct() {
