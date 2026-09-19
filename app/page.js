@@ -66,7 +66,7 @@ export default function Home() {
                 {selected.description || "No description yet."}
               </div>
               <div style={{display:"flex", gap:"10px", marginTop:"15px"}}>
-                <a href={`https://wa.me/2349034567890?text=Hi, I want ${selected.name}`} target="_blank" style={{flex:1, background:"#1e3a8a", color:"white", textAlign:"center", padding:"12px", borderRadius:"8px", textDecoration:"none", fontWeight:"bold"}}>ORDER WHATSAPP</a>
+                <a href={`https://wa.me/2349059791761?text=Hi, I want ${selected.name}`} target="_blank" style={{flex:1, background:"#1e3a8a", color:"white", textAlign:"center", padding:"12px", borderRadius:"8px", textDecoration:"none", fontWeight:"bold"}}>ORDER WHATSAPP</a>
                 <button onClick={()=>setSelected(null)} style={{background:"#334155", color:"white", border:"none", padding:"12px 18px", borderRadius:"8px", fontWeight:"bold"}}>CLOSE</button>
               </div>
             </div>
