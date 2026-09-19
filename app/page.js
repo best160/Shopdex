@@ -10,56 +10,59 @@ const supabase = createClient(
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const [timeLeft, setTimeLeft] = useState("00h : 15m : 32s");
 
   useEffect(() => {
     async function getProducts() {
-      const { data } = await supabase.from("products").select("*");
+      const { data, error } = await supabase.from("products").select("*");
+      console.log("Products:", data, "Error:", error);
       if (data) setProducts(data);
     }
     getProducts();
-    const timer = setInterval(() => {
-      const now = new Date();
-      const h = String(23 - now.getHours()).padStart(2,'0');
-      const m = String(59 - now.getMinutes()).padStart(2,'0');
-      const s = String(59 - now.getSeconds()).padStart(2,'0');
-      setTimeLeft(h + "h : " + m + "m : " + s + "s");
-    }, 1000);
-    return () => clearInterval(timer);
   }, []);
 
   const filtered = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="min-h-screen bg-[#0f172a]">
-      <header className="bg-black p-3 sticky top-0 z-50 border-b border-blue-900">
-        <div className="max-w-7xl mx-auto flex items-center gap-4">
-          <h1 className="font-black text-2xl text-white">SHOPDEX<span className="text-blue-500">★</span></h1>
-          <div className="flex-1 flex">
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." className="flex-1 bg-[#1e293b] text-white rounded-l-md p-2.5 outline-none border border-gray-700" />
-            <button className="bg-blue-900 text-white px-6 rounded-r-md font-bold">Search</button>
-          </div>
+    <div style={{ minHeight: "100vh", background: "#0f172a", color: "white", fontFamily: "sans-serif" }}>
+      {/* HEADER - BLACK */}
+      <header style={{ background: "black", padding: "15px", display: "flex", gap: "15px", alignItems: "center", borderBottom: "2px solid #1e3a8a" }}>
+        <h1 style={{ fontWeight: "900", fontSize: "24px" }}>SHOPDEX<span style={{ color: "#3b82f6" }}>★</span></h1>
+        <div style={{ flex: 1, display: "flex" }}>
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search products..." style={{ flex: 1, padding: "10px", borderRadius: "5px 0 0 5px", border: "none", color: "black" }} />
+          <button style={{ background: "#1e3a8a", color: "white", padding: "10px 20px", borderRadius: "0 5px 5px 0", border: "none", fontWeight: "bold" }}>Search</button>
         </div>
+        <a href="/admin" style={{ background: "#3b82f6", padding: "8px 15px", borderRadius: "5px", textDecoration: "none", color: "white", fontWeight: "bold" }}>Admin</a>
       </header>
 
-      <div className="max-w-7xl mx-auto mt-4 px-2">
-        <div className="bg-gradient-to-r from-black to-[#1e3a8a] rounded-md p-6 flex justify-between items-center text-white border border-blue-900">
-          <h2 className="text-4xl font-black">⚡ FLASH SALES</h2>
-          <span>Time Left: {timeLeft}</span>
+      {/* BANNER */}
+      <div style={{ maxWidth: "1200px", margin: "20px auto", padding: "0 10px" }}>
+        <div style={{ background: "linear-gradient(to right, black, #1e3a8a)", padding: "30px", borderRadius: "10px", display: "flex", justifyContent: "space-between", border: "1px solid #1e3a8a" }}>
+          <h2 style={{ fontSize: "36px", fontWeight: "900", lineHeight: "1" }}>⚡ FLASH<br/>SALES</h2>
+          <p>Best Deals in Nigeria</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto bg-[#1e293b] mt-4 rounded-md overflow-hidden mx-2 border border-blue-900/30">
-        <div className="bg-[#0f172a] p-3 text-blue-400 font-bold border-b border-blue-900">⚡ Flash Sales ({filtered.length})</div>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-blue-900/20">
-          {filtered.map((product) => (
-            <div key={product.id} className="bg-[#0f172a] p-3">
-              <img src={product.image_url} alt={product.name} className="w-full h-40 object-contain bg-white rounded p-1" />
-              <p className="text-sm h-10 mt-2 text-white">{product.name}</p>
-              <p className="font-bold mt-1 text-blue-400">₦{Number(product.price).toLocaleString()}</p>
-              <a href={`https://wa.me/2349034567890?text=Hi, I want ${product.name}`} target="_blank" className="mt-2 block w-full bg-blue-900 text-white text-center py-2 rounded font-bold text-xs">ADD TO CART</a>
+      {/* PRODUCTS */}
+      <div style={{ maxWidth: "1200px", margin: "20px auto", padding: "0 10px" }}>
+        <div style={{ background: "#1e293b", padding: "15px", borderRadius: "10px 10px 0 0", fontWeight: "bold", color: "#60a5fa", border: "1px solid #1e3a8a" }}>
+          ⚡ Flash Sales ({filtered.length} products) - If 0, check Supabase
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "1px", background: "#1e3a8a" }}>
+          {filtered.length === 0 ? (
+            <div style={{ gridColumn: "1/-1", background: "#0f172a", padding: "40px", textAlign: "center" }}>
+              <p>No products found. Check Supabase table 'products' or RLS policy.</p>
+              <p style={{ marginTop: "10px", color: "#60a5fa" }}>Go to Supabase Dashboard → Authentication → Policies → Enable Read for all</p>
             </div>
-          ))}
+          ) : (
+            filtered.map((product) => (
+              <div key={product.id} style={{ background: "#0f172a", padding: "15px" }}>
+                <img src={product.image_url} alt={product.name} style={{ width: "100%", height: "150px", objectFit: "contain", background: "white", borderRadius: "5px" }} />
+                <p style={{ marginTop: "10px", fontSize: "14px", height: "35px", overflow: "hidden" }}>{product.name}</p>
+                <p style={{ fontWeight: "bold", color: "#60a5fa", marginTop: "5px" }}>₦{Number(product.price).toLocaleString()}</p>
+                <a href={`https://wa.me/2349034567890?text=Hi, I want ${product.name}`} target="_blank" style={{ display: "block", marginTop: "10px", background: "#1e3a8a", color: "white", textAlign: "center", padding: "10px", borderRadius: "5px", textDecoration: "none", fontWeight: "bold", fontSize: "12px" }}>ADD TO CART</a>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
