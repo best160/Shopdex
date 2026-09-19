@@ -13,7 +13,7 @@ export default function Admin(){
     const {data}=await supabase.from('products').select('*').order('created_at',{ascending:false})
     setProducts(data||[])
   }
-  const handleLogin=()=>{ if(pass==='shopdex123'){setIsLogin(true)}else{alert('Wrong password')}}
+  const handleLogin=()=>{ if(pass==='best1234##'){setIsLogin(true)}else{alert('Wrong password')}}
   const handleUpload=async(e)=>{
     e.preventDefault()
     const {error}=await supabase.from('products').insert([{...form,price:parseInt(form.price)}])
@@ -26,7 +26,7 @@ export default function Admin(){
   if(!isLogin) return (
     <div style={{maxWidth:'400px',margin:'100px auto',background:'white',padding:'20px',borderRadius:'8px'}}>
       <h2>ShopDex Admin Login</h2>
-      <input type="password" placeholder="Password: shopdex123" value={pass} onChange={e=>setPass(e.target.value)} style={{width:'100%',padding:'10px',margin:'10px 0'}}/>
+      <input type="password" placeholder="Password: input admin pass" value={pass} onChange={e=>setPass(e.target.value)} style={{width:'100%',padding:'10px',margin:'10px 0'}}/>
       <button className="btn" onClick={handleLogin}>Login</button>
     </div>
   )
