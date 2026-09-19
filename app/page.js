@@ -58,7 +58,14 @@ export default function Home() {
           ))}
         </div>
 
-        <div style={{background:"linear-gradient(to right, black, #1e3a8a)", padding:"20px", borderRadius:"12px", border:"1px solid #1e3a8a", marginBottom:"15px"}}>
+          <div style={{background:"linear-gradient(to right, black, #1e3a8a)", padding:"0", borderRadius:"12px", border:"1px solid #1e3a8a", marginBottom:"15px", display:"flex", alignItems:"center", justifyContent:"space-between", overflow:"hidden", minHeight:"140px"}}>
+            <div style={{padding:"20px"}}>
+            <h2 style={{fontSize:"28px", fontWeight:900, margin:0}}>⚡ {activeCat==="All"? "FLASH SALES" : activeCat.toUpperCase()}</h2>
+            <p style={{color:"#93c5fd", margin:"5px 0 0 0", fontSize:"13px"}}>{filtered.length} products • Tap to view description</p>
+            <p style={{color:"white", background:"#3b82f6", display:"inline-block", padding:"5px 12px", borderRadius:"20px", fontSize:"12px", fontWeight:"bold", marginTop:"10px"}}>Up to 80% OFF</p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400" style={{width:"55%", height:"140px", objectFit:"cover", opacity:0.9}} alt="banner" />
+        </div>
           <h2 style={{fontSize:"28px", fontWeight:900, margin:0}}>⚡ {activeCat==="All"? "FLASH SALES" : activeCat.toUpperCase()}</h2>
           <p style={{color:"#93c5fd", margin:"5px 0 0 0", fontSize:"13px"}}>{filtered.length} products • Tap to view description</p>
         </div>
