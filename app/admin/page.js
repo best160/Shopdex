@@ -39,7 +39,7 @@ export default function Admin() {
       setIsAuth(true);
       localStorage.setItem("shopdex_admin_auth","true");
     } else {
-      alert("Wrong Password! ❌");
+      alert("Wrong Password! ❌ I know you tried the default password bro 😂");
     }
   }
 
