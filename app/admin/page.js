@@ -8,6 +8,8 @@ const supabase = createClient(
 );
 
 export default function Admin() {
+  const [isAuth, setIsAuth] = useState(false);
+  const [passInput, setPassInput] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
@@ -17,10 +19,33 @@ export default function Admin() {
   const [loading, setLoading] = useState(false);
   const categories = ["Phones","Shoes","Clothes","Electronics","Bags","Watches","General"];
 
-  useEffect(()=>{ fetchProds(); },[]);
+  // CHANGE YOUR PASSWORD HERE
+  const ADMIN_PASSWORD = "best1234##";
+
+  useEffect(()=>{
+    const savedAuth = localStorage.getItem("shopdex_admin_auth");
+    if(savedAuth === "true") setIsAuth(true);
+    fetchProds();
+  },[]);
+
   async function fetchProds(){
     const {data} = await supabase.from("products").select("*").order("id",{ascending:false});
     if(data) setProducts(data);
+  }
+
+  function handleLogin(e){
+    e.preventDefault();
+    if(passInput === ADMIN_PASSWORD){
+      setIsAuth(true);
+      localStorage.setItem("shopdex_admin_auth","true");
+    } else {
+      alert("Wrong Password! ❌");
+    }
+  }
+
+  function handleLogout(){
+    setIsAuth(false);
+    localStorage.removeItem("shopdex_admin_auth");
   }
 
   async function addProduct(e){
@@ -39,6 +64,21 @@ export default function Admin() {
     fetchProds();
   }
 
+  if(!isAuth){
+    return (
+      <div style={{background:"#020617", minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", padding:"15px", fontFamily:"system-ui"}}>
+        <form onSubmit={handleLogin} style={{background:"#1e293b", padding:"25px", borderRadius:"12px", border:"1px solid #1e3a8a", width:"100%", maxWidth:"360px"}}>
+          <h2 style={{textAlign:"center", margin:"0 0 5px 0", fontWeight:900}}>SHOPDEX ADMIN</h2>
+          <p style={{textAlign:"center", color:"#64748b", fontSize:"12px", margin:"0 0 20px 0"}}>Enter password to access</p>
+          <input value={passInput} onChange={e=>setPassInput(e.target.value)} type="password" placeholder="Admin Password" style={{width:"100%", padding:"14px", borderRadius:"8px", border:"1px solid #334155", background:"#0f172a", color:"white", marginBottom:"12px", fontSize:"14px", boxSizing:"border-box"}}/>
+          <button type="submit" style={{width:"100%", background:"#1e3a8a", color:"white", border:"none", padding:"14px", borderRadius:"8px", fontWeight:900, fontSize:"15px"}}>UNLOCK 🔓</button>
+          <a href="/" style={{display:"block", textAlign:"center", marginTop:"15px", color:"#64748b", textDecoration:"none", fontSize:"12px"}}>← Back to Shop</a>
+          <p style={{textAlign:"center", color:"#334155", fontSize:"10px", marginTop:"15px"}}>Default: shopdex123</p>
+        </form>
+      </div>
+    );
+  }
+
   return (
     <div style={{background:"#020617", minHeight:"100vh", color:"white", padding:"10px", fontFamily:"system-ui"}}>
       <style>{`
@@ -50,18 +90,18 @@ export default function Admin() {
           .top-bar h1{ font-size:20px!important; }
         }
       `}</style>
-
       <div className="admin-wrap">
         <div className="top-bar" style={{display:"flex", justifyContent:"space-between", alignItems:"center", background:"black", padding:"14px", borderRadius:"10px", border:"1px solid #1e3a8a", marginBottom:"15px"}}>
           <h1 style={{margin:0, fontWeight:900, fontSize:"22px"}}>SHOPDEX Admin</h1>
-          <a href="/" style={{background:"#1e293b", color:"white", padding:"8px 14px", borderRadius:"6px", textDecoration:"none", border:"1px solid #1e3a8a", fontWeight:"bold", fontSize:"13px"}}>View Shop</a>
+          <div style={{display:"flex", gap:"8px"}}>
+            <a href="/" style={{background:"#1e293b", color:"white", padding:"8px 14px", borderRadius:"6px", textDecoration:"none", border:"1px solid #1e3a8a", fontWeight:"bold", fontSize:"13px"}}>View Shop</a>
+            <button onClick={handleLogout} style={{background:"#7f1d1d", color:"white", padding:"8px 14px", borderRadius:"6px", border:"none", fontWeight:"bold", fontSize:"13px"}}>Logout</button>
+          </div>
         </div>
 
         <form onSubmit={addProduct} style={{background:"#1e293b", padding:"15px", borderRadius:"12px", border:"1px solid #1e3a8a"}}>
           <h3 style={{margin:"0 0 12px 0", fontSize:"16px"}}>Add New Product</h3>
-          
           <input value={name} onChange={e=>setName(e.target.value)} placeholder="Product Name e.g iPhone 14" style={{width:"100%", padding:"12px", borderRadius:"8px", border:"1px solid #334155", background:"#0f172a", color:"white", marginBottom:"10px", fontSize:"14px", boxSizing:"border-box"}}/>
-
           <div className="form-grid" style={{marginBottom:"10px"}}>
             <input value={price} onChange={e=>setPrice(e.target.value)} placeholder="Price e.g 250000" type="number" style={{padding:"12px", borderRadius:"8px", border:"1px solid #334155", background:"#0f172a", color:"white", fontSize:"14px", width:"100%", boxSizing:"border-box"}}/>
             <select value={category} onChange={e=>setCategory(e.target.value)} style={{padding:"12px", borderRadius:"8px", border:"1px solid #334155", background:"#0f172a", color:"white", fontSize:"14px", width:"100%", boxSizing:"border-box"}}>
@@ -69,11 +109,8 @@ export default function Admin() {
             </select>
             <div style={{background:"#0f172a", padding:"8px", borderRadius:"8px", border:"1px solid #334155", fontSize:"11px", color:"#93c5fd", display:"flex", alignItems:"center"}}>Category: {category}</div>
           </div>
-
           <input value={image} onChange={e=>setImage(e.target.value)} placeholder="Image URL (copy image address)" style={{width:"100%", padding:"12px", borderRadius:"8px", border:"1px solid #334155", background:"#0f172a", color:"white", marginBottom:"10px", fontSize:"14px", boxSizing:"border-box"}}/>
-          
           <textarea value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Description... (Features, Warranty, Delivery)" rows={4} style={{width:"100%", padding:"12px", borderRadius:"8px", border:"1px solid #334155", background:"#0f172a", color:"white", marginBottom:"12px", fontSize:"14px", boxSizing:"border-box", resize:"vertical"}}/>
-
           <button type="submit" disabled={loading} style={{width:"100%", background:"#1e3a8a", color:"white", border:"none", padding:"14px", borderRadius:"8px", fontWeight:900, fontSize:"15px"}}>{loading?"Adding...":"ADD PRODUCT"}</button>
         </form>
 
