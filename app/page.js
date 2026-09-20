@@ -104,7 +104,7 @@ export default function Home() {
         <div style={{maxWidth:"1200px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(200px, 1fr))", gap:"25px"}}>
           <div>
             <h3 style={{fontWeight:900, fontSize:"18px", marginBottom:"10px"}}>SHOPDEX<span style={{color:"#3b82f6"}}>★</span></h3>
-            <p style={{color:"#94a3b8", fontSize:"13px", lineHeight:"1.6"}}>About Me: I build fast and affordable online stores with Next.js & Supabase. Based in Port Harcourt, we deliver nationwide. Quality products, fast WhatsApp checkout.</p>
+            <p style={{color:"#94a3b8", fontSize:"13px", lineHeight:"1.6"}}>About Us: We build fast and affordable online stores or web pages with Next.js & Supabase. Based in Port Harcourt, we deliver nationwide. Quality products, fast WhatsApp checkout.</p>
           </div>
           <div>
             <h4 style={{fontWeight:700, marginBottom:"10px", fontSize:"14px"}}>Shop</h4>
