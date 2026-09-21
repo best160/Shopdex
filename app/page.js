@@ -85,7 +85,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{ background: "black", color: "white", textAlign: "center", padding: "7px", fontSize: "12px", fontWeight: 700, borderTop: "1px solid #222" }}>FREE DELIVERY IN LAGOS TODAY • PAY ON DELIVERY AVAILABLE</div>
+      <div style={{ background: "black", color: "white", textAlign: "center", padding: "7px", fontSize: "12px", fontWeight: 700, borderTop: "1px solid #222" }}>FREE DELIVERY IN PORT-HARCOURT TODAY • PAY ON DELIVERY AVAILABLE</div>
 
       <div style={{ display: "flex", gap: "8px", overflowX: "auto", padding: "12px", background: "white", borderBottom: "1px solid #eee" }}>
         {categories.map((c) => (
@@ -125,7 +125,7 @@ export default function Home() {
 
       <footer style={{ background: "black", color: "white", marginTop: "30px", padding: "30px 15px 15px" }}>
         <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px", maxWidth: "1200px", margin: "0 auto" }}>
-          <div><h3 style={{ fontWeight: 900, marginBottom: "10px" }}>SHOPDEX.NG</h3><p style={{ fontSize: "12px", color: "#aaa", lineHeight: "1.6" }}>Your No.1 trusted online store in Nigeria. Quality products, fast delivery, pay on delivery in Lagos.</p></div>
+          <div><h3 style={{ fontWeight: 900, marginBottom: "10px" }}>SHOPDEX.NG</h3><p style={{ fontSize: "12px", color: "#aaa", lineHeight: "1.6" }}>Your No.1 trusted online store in Nigeria. Quality products, fast delivery, pay on delivery in Port-Harcourt</p></div>
           <div><h4 style={{ fontWeight: 800, fontSize: "13px", marginBottom: "10px" }}>CUSTOMER SERVICE</h4><div style={{ fontSize: "12px", color: "#aaa", display: "flex", flexDirection: "column", gap: "6px" }}><span>Contact Us</span><span>Track Order</span><span>Returns & Refunds</span><span>FAQs</span></div></div>
           <div><h4 style={{ fontWeight: 800, fontSize: "13px", marginBottom: "10px" }}>ABOUT US</h4><div style={{ fontSize: "12px", color: "#aaa", display: "flex", flexDirection: "column", gap: "6px" }}><span>About Shopdex</span><span>Terms & Conditions</span><span>Privacy Policy</span><span>Become a Seller</span></div></div>
           <div><h4 style={{ fontWeight: 800, fontSize: "13px", marginBottom: "10px" }}>CONTACT</h4><div style={{ fontSize: "12px", color: "#aaa", display: "flex", flexDirection: "column", gap: "6px" }}><span>📍 Lagos, Nigeria</span><span>📞 +234 905 979 1761</span><span>✉️ support@shopdex.ng</span><span style={{ marginTop: "8px", background: "white", color: "black", padding: "6px 10px", borderRadius: "6px", fontWeight: 800, width: "fit-content" }}>PAY ON DELIVERY</span></div></div>
