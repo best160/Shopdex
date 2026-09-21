@@ -56,21 +56,20 @@ export default function Home() {
   return (
     <div style={{ background: "#f5f5f5", minHeight: "100vh", color: "#111", fontFamily: "system-ui" }}>
       <style>{`
-       .header-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-       .search-row{ display:flex; flex:1; max-width:500px; }
-       .grid{ display:grid; grid-template-columns:repeat(6, 1fr); gap:12px; }
+      .header-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+      .search-row{ display:flex; flex:1; max-width:500px; }
+      .grid{ display:grid; grid-template-columns:repeat(6, 1fr); gap:12px; }
         @media(max-width:1100px){.grid{ grid-template-columns:repeat(4, 1fr); } }
         @media(max-width:750px){.grid{ grid-template-columns:repeat(3, 1fr); } }
         @media(max-width:600px){
-         .header{ flex-direction:column; align-items:stretch!important; gap:10px!important; }
-         .header-top{ width:100%; }
-         .search-row{ max-width:100%!important; width:100%; }
-         .grid{ grid-template-columns:repeat(2, 1fr)!important; gap:10px!important; }
-         .footer-grid{ grid-template-columns:1fr!important; gap:20px!important; }
+        .header{ flex-direction:column; align-items:stretch!important; gap:10px!important; }
+        .header-top{ width:100%; }
+        .search-row{ max-width:100%!important; width:100%; }
+        .grid{ grid-template-columns:repeat(2, 1fr)!important; gap:10px!important; }
+        .footer-grid{ grid-template-columns:1fr!important; gap:20px!important; }
         }
       `}</style>
 
-      {/* HEADER */}
       <div className="header" style={{ background: "black", padding: "10px 12px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "15px", position: "sticky", top: 0, zIndex: 100 }}>
         <div className="header-top">
           <h1 style={{ fontWeight: 900, fontSize: "20px", margin: 0, whiteSpace: "nowrap", color: "white" }}>SHOPDEX.NG</h1>
@@ -85,17 +84,14 @@ export default function Home() {
         </div>
       </div>
 
-      {/* TRUST BAR - BLACK & WHITE ONLY */}
       <div style={{ background: "black", color: "white", textAlign: "center", padding: "7px", fontSize: "12px", fontWeight: 700, borderTop: "1px solid #222" }}>FREE DELIVERY IN LAGOS TODAY • PAY ON DELIVERY AVAILABLE</div>
 
-      {/* CATEGORIES */}
       <div style={{ display: "flex", gap: "8px", overflowX: "auto", padding: "12px", background: "white", borderBottom: "1px solid #eee" }}>
         {categories.map((c) => (
           <button key={c} onClick={() => setActiveCat(c)} style={{ padding: "6px 14px", borderRadius: "20px", border: "1px solid #ddd", whiteSpace: "nowrap", fontWeight: 700, fontSize: "12px", background: activeCat === c? "black" : "white", color: activeCat === c? "white" : "#333" }}>{c}</button>
         ))}
       </div>
 
-      {/* PRODUCTS */}
       <div style={{ padding: "12px", maxWidth: "1400px", margin: "0 auto" }}>
         <div className="grid">
           {filtered.map((p) => {
@@ -126,18 +122,16 @@ export default function Home() {
         </div>
       </div>
 
-      {/* FOOTER - BACK */}
       <footer style={{ background: "black", color: "white", marginTop: "30px", padding: "30px 15px 15px" }}>
         <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px", maxWidth: "1200px", margin: "0 auto" }}>
           <div><h3 style={{ fontWeight: 900, marginBottom: "10px" }}>SHOPDEX.NG</h3><p style={{ fontSize: "12px", color: "#aaa", lineHeight: "1.6" }}>Your No.1 trusted online store in Nigeria. Quality products, fast delivery, pay on delivery in Lagos.</p></div>
           <div><h4 style={{ fontWeight: 800, fontSize: "13px", marginBottom: "10px" }}>CUSTOMER SERVICE</h4><div style={{ fontSize: "12px", color: "#aaa", display: "flex", flexDirection: "column", gap: "6px" }}><span>Contact Us</span><span>Track Order</span><span>Returns & Refunds</span><span>FAQs</span></div></div>
           <div><h4 style={{ fontWeight: 800, fontSize: "13px", marginBottom: "10px" }}>ABOUT US</h4><div style={{ fontSize: "12px", color: "#aaa", display: "flex", flexDirection: "column", gap: "6px" }}><span>About Shopdex</span><span>Terms & Conditions</span><span>Privacy Policy</span><span>Become a Seller</span></div></div>
-          <div><h4 style={{ fontWeight: 800, fontSize: "13px", marginBottom: "10px" }}>CONTACT</h4><div style={{ fontSize: "12px", color: "#aaa", display: "flex", flexDirection: "column", gap: "6px" }}><span>📍 Lagos, Nigeria</span><span>📞 +234 000 000 0000</span><span>✉️ support@shopdex.ng</span><span style={{ marginTop: "8px", background: "white", color: "black", padding: "6px 10px", borderRadius: "6px", fontWeight: 800, width: "fit-content" }}>PAY ON DELIVERY</span></div></div>
+          <div><h4 style={{ fontWeight: 800, fontSize: "13px", marginBottom: "10px" }}>CONTACT</h4><div style={{ fontSize: "12px", color: "#aaa", display: "flex", flexDirection: "column", gap: "6px" }}><span>📍 Lagos, Nigeria</span><span>📞 +234 905 979 1761</span><span>✉️ support@shopdex.ng</span><span style={{ marginTop: "8px", background: "white", color: "black", padding: "6px 10px", borderRadius: "6px", fontWeight: 800, width: "fit-content" }}>PAY ON DELIVERY</span></div></div>
         </div>
         <div style={{ borderTop: "1px solid #222", marginTop: "25px", paddingTop: "12px", textAlign: "center", fontSize: "11px", color: "#666" }}>© 2026 SHOPDEX.NG - All Rights Reserved. Built with ❤️ in Lagos</div>
       </footer>
 
-      {/* NEW CART WITH DELETE */}
       {showCart && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 200, display: "flex", justifyContent: "flex-end" }}>
           <div style={{ background: "white", width: "92%", maxWidth: "400px", height: "100%", display: "flex", flexDirection: "column" }}>
@@ -177,7 +171,7 @@ export default function Home() {
                   <span style={{ fontSize: "13px", color: "#666" }}>Subtotal ({cartCount} items)</span>
                   <span style={{ fontWeight: 900, fontSize: "15px", color: "black" }}>₦{total.toLocaleString()}</span>
                 </div>
-                <a href={`https://wa.me/234000000000?text=${encodeURIComponent(`Hello SHOPDEX! I want to order:\n\n${cart.map((c) => `• ${c.name} x${c.qty} - ₦${Number(c.price).toLocaleString()}`).join("\n")}\n\nTotal: ₦${total.toLocaleString()}`)}`} target="_blank" style={{ display: "block", background: "black", color: "white", textAlign: "center", padding: "13px", borderRadius: "10px", textDecoration: "none", fontWeight: 900, fontSize: "13px" }}>ORDER ON WHATSAPP →</a>
+                <a href={`https://wa.me/2349059791761?text=${encodeURIComponent(`Hello SHOPDEX! I want to order:\n\n${cart.map((c) => `• ${c.name} x${c.qty} - ₦${Number(c.price).toLocaleString()}`).join("\n")}\n\nTotal: ₦${total.toLocaleString()}`)}`} target="_blank" style={{ display: "block", background: "black", color: "white", textAlign: "center", padding: "13px", borderRadius: "10px", textDecoration: "none", fontWeight: 900, fontSize: "13px" }}>ORDER ON WHATSAPP →</a>
                 <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
                   <button onClick={() => setCart([])} style={{ flex: 1, background: "white", color: "black", border: "1px solid #ddd", padding: "10px", borderRadius: "8px", fontWeight: 700, fontSize: "12px" }}>🗑️ CLEAR CART</button>
                   <button onClick={() => setShowCart(false)} style={{ flex: 1, background: "#f5f5f5", color: "black", border: "none", padding: "10px", borderRadius: "8px", fontWeight: 700, fontSize: "12px" }}>CONTINUE</button>
@@ -187,6 +181,7 @@ export default function Home() {
           </div>
         </div>
       )}
+      <a href="https://wa.me/2349059791761" target="_blank" style={{position:"fixed", bottom:"20px", right:"15px", background:"#25D366", width:"56px", height:"56px", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"28px", boxShadow:"0 4px 15px rgba(0,0,0,0.3)", zIndex:99, textDecoration:"none"}}>💬</a>
     </div>
   );
 }
