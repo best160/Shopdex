@@ -20,7 +20,7 @@ export default function Admin() {
   const categories = ["Phones","Shoes","Clothes","Electronics","Bags","Watches","General"];
 
   // CHANGE YOUR PASSWORD HERE
-  const ADMIN_PASSWORD = "maventer123";
+  const ADMIN_PASSWORD = "best1234##";
 
   useEffect(()=>{
     const savedAuth = localStorage.getItem("shopdex_admin_auth");
