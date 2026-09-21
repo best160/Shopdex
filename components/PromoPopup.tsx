@@ -50,7 +50,7 @@ export default function PromoPopup() {
 
         <h2 style={{
           fontSize:'28px', fontWeight:'900', lineHeight:'1.1',
-          marginBottom:'10px', color:'#111827'
+          marginBottom:'10px', color:'#0000'
         }}>GET 50% OFF<br/>TODAY ONLY!</h2>
         
         <p style={{color:'#6b7280', fontSize:'14px', marginBottom:'16px'}}>
