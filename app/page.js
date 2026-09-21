@@ -13,6 +13,7 @@ export default function Home() {
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [activeCat, setActiveCat] = useState("All");
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const categories = ["All", "Phones", "Shoes", "Clothes", "Electronics", "Bags", "Watches"];
 
   useEffect(() => {
@@ -99,7 +100,7 @@ export default function Home() {
             const rating = (4.3 + Math.random() * 0.6).toFixed(1);
             const sold = Math.floor(80 + Math.random() * 300);
             return (
-              <div key={p.id} style={{ background: "white", borderRadius: "10px", overflow: "hidden", position: "relative", border: "1px solid #e5e5e5" }}>
+              <div key={p.id} onClick={() => setSelectedProduct(p)} style={{ background: "white", borderRadius: "10px", overflow: "hidden", position: "relative", border: "1px solid #e5e5e5", cursor: "pointer" }}>
                 <div style={{ position: "absolute", top: "6px", left: "6px", background: "black", color: "white", fontSize: "11px", fontWeight: 900, padding: "3px 6px", borderRadius: "4px" }}>-45%</div>
                 <img src={p.image_url || p.image} alt={p.name} style={{ width: "100%", height: "150px", objectFit: "cover", background: "#f9f9f9" }} />
                 <div style={{ padding: "8px 10px" }}>
@@ -114,7 +115,7 @@ export default function Home() {
                     <b style={{ fontSize: "14px", color: "black" }}>₦{Number(p.price).toLocaleString()}</b>
                     <span style={{ fontSize: "10px", color: "#999", textDecoration: "line-through" }}>₦{oldPrice.toLocaleString()}</span>
                   </div>
-                  <button onClick={() => addToCart(p)} style={{ width: "100%", marginTop: "8px", background: "black", color: "white", border: "none", padding: "9px", borderRadius: "6px", fontWeight: 800, fontSize: "11px" }}>ADD TO CART</button>
+                  <button onClick={(e) => { e.stopPropagation(); addToCart(p); }} style={{ width: "100%", marginTop: "8px", background: "black", color: "white", border: "none", padding: "9px", borderRadius: "6px", fontWeight: 800, fontSize: "11px" }}>ADD TO CART</button>
                 </div>
               </div>
             );
@@ -131,6 +132,35 @@ export default function Home() {
         </div>
         <div style={{ borderTop: "1px solid #222", marginTop: "25px", paddingTop: "12px", textAlign: "center", fontSize: "11px", color: "#666" }}>© 2026 SHOPDEX.NG - All Rights Reserved. Built with ❤️ in Lagos</div>
       </footer>
+
+      {selectedProduct && (
+        <div onClick={() => setSelectedProduct(null)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 300, display: "flex", alignItems: "center", justifyContent: "center", padding: "15px" }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ background: "white", width: "100%", maxWidth: "420px", borderRadius: "12px", overflow: "hidden", maxHeight: "90vh", overflowY: "auto" }}>
+            <div style={{ position: "relative" }}>
+              <img src={selectedProduct.image_url || selectedProduct.image} style={{ width: "100%", height: "280px", objectFit: "cover" }} />
+              <button onClick={() => setSelectedProduct(null)} style={{ position: "absolute", top: "10px", right: "10px", background: "white", border: "none", width: "32px", height: "32px", borderRadius: "50%", fontWeight: 900 }}>✕</button>
+              <div style={{ position: "absolute", bottom: "10px", left: "10px", background: "black", color: "white", fontSize: "12px", fontWeight: 900, padding: "4px 8px", borderRadius: "4px" }}>-45% OFF</div>
+            </div>
+            <div style={{ padding: "15px" }}>
+              <div style={{ fontSize: "11px", color: "#888", textTransform: "uppercase", fontWeight: 700 }}>{selectedProduct.category}</div>
+              <h2 style={{ fontSize: "18px", fontWeight: 900, margin: "5px 0", color: "black" }}>{selectedProduct.name}</h2>
+              <div style={{ display: "flex", gap: "8px", alignItems: "center", margin: "10px 0" }}>
+                <b style={{ fontSize: "20px", color: "black" }}>₦{Number(selectedProduct.price).toLocaleString()}</b>
+                <span style={{ fontSize: "13px", color: "#999", textDecoration: "line-through" }}>₦{Math.round(Number(selectedProduct.price) * 1.7).toLocaleString()}</span>
+                <span style={{ background: "#e8f5e9", color: "#2e7d32", fontSize: "11px", fontWeight: 800, padding: "3px 6px", borderRadius: "4px" }}>In Stock</span>
+              </div>
+              <div style={{ background: "#f9f9f9", borderRadius: "8px", padding: "12px", margin: "12px 0" }}>
+                <div style={{ fontWeight: 800, fontSize: "13px", marginBottom: "6px", color: "black" }}>Product Description:</div>
+                <p style={{ fontSize: "13px", color: "#444", lineHeight: "1.5", margin: 0 }}>{selectedProduct.description || `High quality ${selectedProduct.name}. Original product from Shopdex. Fast delivery in Lagos. Pay on delivery available. 100% quality guaranteed.`}</p>
+              </div>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <button onClick={() => { addToCart(selectedProduct); setSelectedProduct(null); setShowCart(true); }} style={{ flex: 1, background: "black", color: "white", border: "none", padding: "13px", borderRadius: "8px", fontWeight: 900, fontSize: "13px" }}>ADD TO CART</button>
+                <a href={`https://wa.me/2349059791761?text=${encodeURIComponent(`Hello Shopdex! I want ${selectedProduct.name} - ₦${Number(selectedProduct.price).toLocaleString()}`)}`} target="_blank" style={{ flex: 1, background: "#25D366", color: "white", textAlign: "center", padding: "13px", borderRadius: "8px", textDecoration: "none", fontWeight: 900, fontSize: "13px" }}>WHATSAPP</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showCart && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 200, display: "flex", justifyContent: "flex-end" }}>
@@ -181,7 +211,9 @@ export default function Home() {
           </div>
         </div>
       )}
+
       <a href="https://wa.me/2349059791761" target="_blank" style={{position:"fixed", bottom:"20px", right:"15px", background:"#25D366", width:"56px", height:"56px", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"28px", boxShadow:"0 4px 15px rgba(0,0,0,0.3)", zIndex:99, textDecoration:"none"}}>💬</a>
+
     </div>
   );
 }
